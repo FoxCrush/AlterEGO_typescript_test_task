@@ -1,4 +1,7 @@
 import * as React from "react";
+import "./App.css";
+import Button from "@mui/material/Button";
+import ButtonGroup from "@mui/material/ButtonGroup";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -12,6 +15,7 @@ import Menu from "@mui/material/Menu";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import { Avatar } from "@mui/material";
+import { Link } from "react-router-dom";
 
 export default function MenuAppBar() {
   const [auth, setAuth] = React.useState(true);
@@ -25,6 +29,9 @@ export default function MenuAppBar() {
     setAlignment(newAlignment);
   };
 
+  const handleLogoutClick = () => {
+    setAuth(false);
+  };
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAuth(event.target.checked);
   };
@@ -39,7 +46,7 @@ export default function MenuAppBar() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <FormGroup>
+      {/* <FormGroup>
         <FormControlLabel
           control={
             <Switch
@@ -50,12 +57,36 @@ export default function MenuAppBar() {
           }
           label={auth ? "Logout" : "Login"}
         />
-      </FormGroup>
-      <AppBar position="static">
+      </FormGroup> */}
+      <AppBar
+        position="static"
+        sx={{
+          justifyContent: "space-between",
+          flexDirection: "row",
+        }}
+      >
         <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            News
-          </Typography>
+          <ButtonGroup
+            variant="contained"
+            aria-label="outlined primary button group"
+          >
+            <Link to={"/"}>
+              <Button>
+                <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                  Home
+                </Typography>
+              </Button>
+            </Link>
+            <Link to={"/news"}>
+              <Button>
+                <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                  News
+                </Typography>
+              </Button>
+            </Link>
+          </ButtonGroup>
+        </Toolbar>
+        <Toolbar>
           <ToggleButtonGroup
             value={alignment}
             exclusive
@@ -97,7 +128,7 @@ export default function MenuAppBar() {
                 onClose={handleClose}
               >
                 <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleClose}>Log out</MenuItem>
+                <MenuItem onClick={handleLogoutClick}>Log out</MenuItem>
               </Menu>
             </div>
           )}

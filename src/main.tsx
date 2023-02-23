@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import MainViewContents from "./components/main-view-container";
 import App from "./components/main-view";
 import ErrorPage from "./components/utility/error-page.jsx";
 import { createHashRouter, RouterProvider } from "react-router-dom";
@@ -11,7 +12,12 @@ const router = createHashRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        path: "news",
+        path: "",
+        element: <MainViewContents />,
+        // loader: teamLoader,
+      },
+      {
+        path: "news/",
         element: <div>News page</div>,
         // loader: teamLoader,
       },
