@@ -15,7 +15,7 @@ import Menu from "@mui/material/Menu";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import { Avatar } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 
 export default function MenuAppBar() {
   const [auth, setAuth] = React.useState(true);
@@ -134,6 +134,7 @@ export default function MenuAppBar() {
           )}
         </Toolbar>
       </AppBar>
+      <Outlet />
     </Box>
   );
 }
