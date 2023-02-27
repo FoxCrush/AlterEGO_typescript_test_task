@@ -1,5 +1,6 @@
 import * as React from "react";
-import "./App.css";
+import "./nav-bar.css";
+import { Trans, useTranslation } from "react-i18next";
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import AppBar from "@mui/material/AppBar";
@@ -7,17 +8,16 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
-import Switch from "@mui/material/Switch";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FormGroup from "@mui/material/FormGroup";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import { Avatar } from "@mui/material";
 import { Link, Outlet } from "react-router-dom";
+import i18next from "i18next";
 
 export default function MenuAppBar() {
+  const { t } = useTranslation();
   const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [alignment, setAlignment] = React.useState<string | null>("left");
@@ -66,25 +66,27 @@ export default function MenuAppBar() {
         }}
       >
         <Toolbar>
-          <ButtonGroup
-            variant="contained"
-            aria-label="outlined primary button group"
-          >
-            <Link to={"/"}>
-              <Button>
-                <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                  Home
-                </Typography>
-              </Button>
-            </Link>
-            <Link to={"/news"}>
-              <Button>
-                <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                  News
-                </Typography>
-              </Button>
-            </Link>
-          </ButtonGroup>
+          <Trans i18nKey={"navButtons"}>
+            <ButtonGroup
+              variant="contained"
+              aria-label="outlined primary button group"
+            >
+              <Link to={"/"}>
+                <Button>
+                  <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                    Home
+                  </Typography>
+                </Button>
+              </Link>
+              <Link to={"/news"}>
+                <Button>
+                  <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                    News
+                  </Typography>
+                </Button>
+              </Link>
+            </ButtonGroup>
+          </Trans>
         </Toolbar>
         <Toolbar>
           <ToggleButtonGroup
@@ -93,10 +95,22 @@ export default function MenuAppBar() {
             onChange={handleAlignment}
             aria-label="text alignment"
           >
-            <ToggleButton value="left" aria-label="left aligned">
+            <ToggleButton
+              value="left"
+              aria-label="left aligned"
+              onClick={() => {
+                i18next.changeLanguage("en");
+              }}
+            >
               EN
             </ToggleButton>
-            <ToggleButton value="center" aria-label="centered">
+            <ToggleButton
+              value="center"
+              aria-label="centered"
+              onClick={() => {
+                i18next.changeLanguage("ua");
+              }}
+            >
               UA
             </ToggleButton>
           </ToggleButtonGroup>
@@ -127,8 +141,8 @@ export default function MenuAppBar() {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleLogoutClick}>Log out</MenuItem>
+                <MenuItem onClick={handleClose}>{t("profile")}</MenuItem>
+                <MenuItem onClick={handleLogoutClick}>{t("logOut")}</MenuItem>
               </Menu>
             </div>
           )}
