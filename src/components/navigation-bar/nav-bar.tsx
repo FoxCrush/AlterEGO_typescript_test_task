@@ -141,7 +141,9 @@ export default function MenuAppBar() {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>{t("profile")}</MenuItem>
+                <Link to={"/profile"}>
+                  <MenuItem>{t("profile")}</MenuItem>
+                </Link>
                 <MenuItem onClick={handleLogoutClick}>{t("logOut")}</MenuItem>
               </Menu>
             </div>
