@@ -8,6 +8,8 @@ import MainView from "./routes/main-view.jsx";
 import ProfileView from "./routes/profile-view.jsx";
 import ErrorPage from "./components/utility/error-page.jsx";
 import { createHashRouter, Outlet, RouterProvider } from "react-router-dom";
+import { fetchInitialPosts } from "./services/jsonplaceholder-api";
+
 const router = createHashRouter([
   {
     path: "/",
@@ -28,6 +30,9 @@ const router = createHashRouter([
             path: "news",
             element: <NewsComponent />,
             errorElement: <ErrorPage />,
+            loader: async () => {
+              return fetchInitialPosts();
+            },
           },
           {
             path: "profile",
