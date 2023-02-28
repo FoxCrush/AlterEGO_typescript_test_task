@@ -11,7 +11,9 @@ import { useLoaderData } from "react-router-dom";
 import { INews } from "../../types/interfaces";
 
 export default function NewsComponent() {
-  const [articles, setArticles] = React.useState<INews[]>(useLoaderData());
+  const [articles, setArticles] = React.useState<INews[]>(
+    useLoaderData() as INews[]
+  );
 
   return (
     <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
@@ -19,27 +21,18 @@ export default function NewsComponent() {
         <Grid item xs={6} key={article.id}>
           <Card sx={{ minWidth: 275 }}>
             <CardContent>
-              <Typography
-                sx={{ fontSize: 14 }}
-                color="text.secondary"
-                gutterBottom
-              >
-                Word of the Day
-              </Typography>
               <Typography variant="h5" component="div">
-                be
-              </Typography>
-              <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                adjective
+                {article.name}
               </Typography>
               <Typography variant="body2">
-                well meaning and kindly.
-                <br />
-                {'"a benevolent smile"'}
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                Beatae, optio?Lorem ipsum dolor sit, amet consectetur
+                adipisicing elit. Odit suscipit molestias sapiente aliquam illo!
+                Ducimus et dolorem autem nesciunt hic.
               </Typography>
             </CardContent>
             <CardActions>
-              <Button size="small">Learn More</Button>
+              <Button size="small">Delete</Button>
             </CardActions>
           </Card>
         </Grid>
