@@ -17,7 +17,7 @@ import i18next from "i18next";
 
 export default function MenuAppBar() {
   const { t } = useTranslation();
-  const [auth, setAuth] = React.useState(true);
+  const [auth, setAuth] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [lang, setLang] = React.useState(() =>
     localStorage.getItem("i18nextLng")
@@ -35,8 +35,9 @@ export default function MenuAppBar() {
   const handleLogoutClick = () => {
     setAuth(false);
   };
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setAuth(event.target.checked);
+  const handleLoginClick = () => {
+    setAuth(!auth);
+    setAnchorEl(null);
   };
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -105,7 +106,7 @@ export default function MenuAppBar() {
               UA
             </ToggleButton>
           </ToggleButtonGroup>
-          {auth && (
+          {auth ? (
             <div>
               <IconButton
                 size="large"
@@ -115,7 +116,7 @@ export default function MenuAppBar() {
                 onClick={handleMenu}
                 color="inherit"
               >
-                <Avatar sx={{ bgcolor: "purple" }}>OP</Avatar>
+                <Avatar sx={{ bgcolor: "purple" }}>ME</Avatar>
               </IconButton>
               <Menu
                 id="menu-appbar"
@@ -133,13 +134,23 @@ export default function MenuAppBar() {
                 onClose={handleClose}
               >
                 <Link href={"/profile"} underline="none">
-                  <MenuItem>{t("profile")}</MenuItem>
+                  <MenuItem
+                    onClick={() => {
+                      setAnchorEl(null);
+                    }}
+                  >
+                    {t("profile")}
+                  </MenuItem>
                 </Link>
                 <Link href={"/"} underline="none">
                   <MenuItem onClick={handleLogoutClick}>{t("logOut")}</MenuItem>
                 </Link>
               </Menu>
             </div>
+          ) : (
+            <Button size="large" onClick={handleLoginClick} color="inherit">
+              <Typography>Sign in</Typography>
+            </Button>
           )}
         </Toolbar>
       </AppBar>
