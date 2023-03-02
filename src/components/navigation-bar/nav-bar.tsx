@@ -2,7 +2,6 @@ import * as React from "react";
 import "./nav-bar.css";
 import { Trans, useTranslation } from "react-i18next";
 import Button from "@mui/material/Button";
-import ButtonGroup from "@mui/material/ButtonGroup";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -12,23 +11,27 @@ import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
-import { Avatar } from "@mui/material";
-import { Link, Outlet } from "react-router-dom";
+import { Avatar, Link } from "@mui/material";
+import { Outlet } from "react-router-dom";
 import i18next from "i18next";
 
 export default function MenuAppBar() {
   const { t } = useTranslation();
   const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const [alignment, setAlignment] = React.useState<string | null>("left");
+  const [lang, setLang] = React.useState(() =>
+    localStorage.getItem("i18nextLng")
+  );
 
-  const handleAlignment = (
+  const handleLangs = (
     event: React.MouseEvent<HTMLElement>,
-    newAlignment: string | null
+    newLngs: string
   ) => {
-    setAlignment(newAlignment);
+    if (newLngs.length > 0) {
+      setLang(newLngs);
+      i18next.changeLanguage(newLngs);
+    }
   };
-
   const handleLogoutClick = () => {
     setAuth(false);
   };
@@ -67,49 +70,37 @@ export default function MenuAppBar() {
       >
         <Toolbar>
           <Trans i18nKey={"navButtons"}>
-            <ButtonGroup
-              variant="contained"
-              aria-label="outlined primary button group"
-            >
-              <Link to={"/"}>
-                <Button>
+            <Box>
+              <Link href={"/"} underline="none">
+                <Button variant="contained">
                   <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                     Home
                   </Typography>
                 </Button>
               </Link>
-              <Link to={"/news"}>
-                <Button>
+              <Link href={"/news"} underline="none">
+                <Button variant="contained">
                   <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                     News
                   </Typography>
                 </Button>
               </Link>
-            </ButtonGroup>
+            </Box>
           </Trans>
         </Toolbar>
         <Toolbar>
-          <ToggleButtonGroup
-            value={alignment}
-            exclusive
-            onChange={handleAlignment}
-            aria-label="text alignment"
-          >
+          <ToggleButtonGroup value={lang} exclusive aria-label="text alignment">
             <ToggleButton
-              value="left"
+              value="en"
               aria-label="left aligned"
-              onClick={() => {
-                i18next.changeLanguage("en");
-              }}
+              onClick={handleLangs}
             >
               EN
             </ToggleButton>
             <ToggleButton
-              value="center"
+              value="ua"
               aria-label="centered"
-              onClick={() => {
-                i18next.changeLanguage("ua");
-              }}
+              onClick={handleLangs}
             >
               UA
             </ToggleButton>
@@ -141,10 +132,12 @@ export default function MenuAppBar() {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <Link to={"/profile"}>
+                <Link href={"/profile"} underline="none">
                   <MenuItem>{t("profile")}</MenuItem>
                 </Link>
-                <MenuItem onClick={handleLogoutClick}>{t("logOut")}</MenuItem>
+                <Link href={"/"} underline="none">
+                  <MenuItem onClick={handleLogoutClick}>{t("logOut")}</MenuItem>
+                </Link>
               </Menu>
             </div>
           )}

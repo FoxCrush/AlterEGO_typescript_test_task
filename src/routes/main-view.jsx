@@ -9,7 +9,7 @@ export default function MainView() {
         <RotatingLines
           strokeColor="grey"
           strokeWidth="5"
-          animationDuration="0.75"
+          animationDuration="0.5"
           width="96"
           visible={true}
         />
