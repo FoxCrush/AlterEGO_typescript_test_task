@@ -11,7 +11,8 @@ import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
-import { Avatar, Link } from "@mui/material";
+import LoginForm from "../login-form";
+import { Avatar, Link, Stack } from "@mui/material";
 import { Outlet } from "react-router-dom";
 import i18next from "i18next";
 
@@ -71,7 +72,7 @@ export default function MenuAppBar() {
       >
         <Toolbar>
           <Trans i18nKey={"navButtons"}>
-            <Box>
+            <Stack spacing={2} direction="row">
               <Link href={"/"} underline="none">
                 <Button variant="contained">
                   <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
@@ -86,7 +87,7 @@ export default function MenuAppBar() {
                   </Typography>
                 </Button>
               </Link>
-            </Box>
+            </Stack>
           </Trans>
         </Toolbar>
         <Toolbar>
@@ -154,6 +155,7 @@ export default function MenuAppBar() {
           )}
         </Toolbar>
       </AppBar>
+      <LoginForm />
       <Outlet />
     </Box>
   );
