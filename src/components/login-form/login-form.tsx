@@ -3,18 +3,22 @@ import styles from "./login-form.module.css";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { Button, Backdrop, Typography } from "@mui/material";
+import { useAppSelector, useAppDispatch } from "../../redux/hooks";
+import { toggleVisible } from "../../redux/user-slice";
 
 export default function FormPropsTextFields() {
-  const [open, setOpen] = React.useState(true);
+  const loginVisible = useAppSelector((state) => state.users.isAuthFormVisible);
+  const dispatch = useAppDispatch();
   const handleClose = (event: React.MouseEvent<HTMLElement>) => {
     if (event.currentTarget === event.target) {
-      setOpen(false);
+      dispatch(toggleVisible());
     }
   };
+
   return (
     <Backdrop
       onClick={handleClose}
-      open={open}
+      open={loginVisible}
       sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
     >
       <div className={styles.container}>

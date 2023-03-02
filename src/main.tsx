@@ -10,11 +10,13 @@ import ProfileView from "./routes/profile-view.jsx";
 import ErrorPage from "./components/utility/error-page.jsx";
 import { createHashRouter, Outlet, RouterProvider } from "react-router-dom";
 import { fetchInitialPosts } from "./services/jsonplaceholder-api";
+import { Provider } from "react-redux";
 import {
   Link as RouterLink,
   LinkProps as RouterLinkProps,
 } from "react-router-dom";
 import { LinkProps } from "@mui/material/Link";
+import { store } from "./redux/store.js";
 
 const LinkBehavior = React.forwardRef<
   HTMLAnchorElement,
@@ -77,8 +79,10 @@ const router = createHashRouter([
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <RouterProvider router={router} />
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider theme={theme}>
+        <RouterProvider router={router} />
+      </ThemeProvider>
+    </Provider>
   </React.StrictMode>
 );

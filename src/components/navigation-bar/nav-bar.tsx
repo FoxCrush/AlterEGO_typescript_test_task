@@ -11,10 +11,12 @@ import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
+import { useAppDispatch } from "../../redux/hooks";
 import LoginForm from "../login-form";
 import { Avatar, Link, Stack } from "@mui/material";
 import { Outlet } from "react-router-dom";
 import i18next from "i18next";
+import { toggleVisible } from "../../redux/user-slice";
 
 export default function MenuAppBar() {
   const { t } = useTranslation();
@@ -23,6 +25,7 @@ export default function MenuAppBar() {
   const [lang, setLang] = React.useState(() =>
     localStorage.getItem("i18nextLng")
   );
+  const dispatch = useAppDispatch();
 
   const handleLangs = (
     event: React.MouseEvent<HTMLElement>,
@@ -34,10 +37,11 @@ export default function MenuAppBar() {
     }
   };
   const handleLogoutClick = () => {
-    setAuth(false);
+    // setAuth(false);
   };
   const handleLoginClick = () => {
-    setAuth(!auth);
+    dispatch(toggleVisible());
+    // setAuth(!auth);
     setAnchorEl(null);
   };
 
