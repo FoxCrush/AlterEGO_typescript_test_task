@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 export default function Article({ name }) {
   return (
-    <Grid item xs={6}>
+    <Grid item xs={12}>
       <Card sx={{ minWidth: 275 }}>
         <CardContent>
           <Typography variant="h5" component="div">

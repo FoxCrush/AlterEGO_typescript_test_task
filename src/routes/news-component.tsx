@@ -18,22 +18,20 @@ export default function NewsComponent() {
   };
 
   return (
-    <Box>
-      <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+    <Box sx={{ padding: "1em" }}>
+      <Grid container rowSpacing={3} columnSpacing={{ xs: 12, sm: 2, md: 3 }}>
         {articles.map((article) => (
           <Article key={article.id} name={article.name} />
         ))}
       </Grid>
-      {articles.length > 0 && !loading && (
-        <Button
-          size="large"
-          sx={{ marginTop: "2em" }}
-          onClick={loadMoreHandler}
-        >
-          Load more
-        </Button>
-      )}
-      {loading && <RotatingLines />}
+      <div style={{ marginTop: "2em" }}>
+        {articles.length > 0 && !loading && (
+          <Button size="large" onClick={loadMoreHandler}>
+            Load more
+          </Button>
+        )}
+        {loading && <RotatingLines width="42" />}
+      </div>
     </Box>
   );
 }
