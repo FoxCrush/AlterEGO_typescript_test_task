@@ -4,7 +4,7 @@ import "./index.css";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import ReactDOM from "react-dom/client";
 import MainViewContents from "./components/main-view-container";
-import NewsComponent from "./components/news";
+import NewsComponent from "./routes/news-component";
 import MainView from "./routes/main-view.jsx";
 import ProfileView from "./routes/profile-view.jsx";
 import ErrorPage from "./components/utility/error-page.jsx";
