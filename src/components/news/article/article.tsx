@@ -1,5 +1,5 @@
 import React from "react";
-import { INews } from "../../../types/interfaces";
+import { useTranslation } from "react-i18next";
 import {
   Button,
   Card,
@@ -9,6 +9,7 @@ import {
   Typography,
 } from "@mui/material";
 export default function Article({ name }) {
+  const { t } = useTranslation();
   return (
     <Grid item xs={12}>
       <Card sx={{ minWidth: 275 }}>
@@ -24,7 +25,7 @@ export default function Article({ name }) {
           </Typography>
         </CardContent>
         <CardActions>
-          <Button size="small">Delete</Button>
+          <Button size="small">{t("delete")}</Button>
         </CardActions>
       </Card>
     </Grid>

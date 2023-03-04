@@ -1,6 +1,7 @@
 import * as React from "react";
 import "./nav-bar.css";
 import { Trans, useTranslation } from "react-i18next";
+import i18next from "i18next";
 import Button from "@mui/material/Button";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -15,7 +16,6 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import LoginForm from "../login-form";
 import { Avatar, Link, Stack } from "@mui/material";
 import { Outlet } from "react-router-dom";
-import i18next from "i18next";
 import { toggleVisible, setToken } from "../../redux/user-slice";
 
 export default function MenuAppBar() {
@@ -86,22 +86,28 @@ export default function MenuAppBar() {
           </Trans>
         </Toolbar>
         <Toolbar>
-          <ToggleButtonGroup value={lang} exclusive aria-label="text alignment">
-            <ToggleButton
-              value="en"
-              aria-label="left aligned"
-              onClick={handleLangs}
+          <Trans i18nKey={"langOptions"}>
+            <ToggleButtonGroup
+              value={lang}
+              exclusive
+              aria-label="text alignment"
             >
-              EN
-            </ToggleButton>
-            <ToggleButton
-              value="ua"
-              aria-label="centered"
-              onClick={handleLangs}
-            >
-              UA
-            </ToggleButton>
-          </ToggleButtonGroup>
+              <ToggleButton
+                value="en"
+                aria-label="left aligned"
+                onClick={handleLangs}
+              >
+                EN
+              </ToggleButton>
+              <ToggleButton
+                value="ua"
+                aria-label="centered"
+                onClick={handleLangs}
+              >
+                UA
+              </ToggleButton>
+            </ToggleButtonGroup>
+          </Trans>
           {auth ? (
             <div>
               <IconButton
@@ -112,7 +118,7 @@ export default function MenuAppBar() {
                 onClick={handleMenu}
                 color="inherit"
               >
-                <Avatar sx={{ bgcolor: "purple" }}>ME</Avatar>
+                <Avatar sx={{ bgcolor: "purple" }}>{t("me")}</Avatar>
               </IconButton>
               <Menu
                 id="menu-appbar"
@@ -145,7 +151,7 @@ export default function MenuAppBar() {
             </div>
           ) : (
             <Button size="large" onClick={handleLoginClick} color="inherit">
-              <Typography>Sign in</Typography>
+              <Typography>{t("logIn")}</Typography>
             </Button>
           )}
         </Toolbar>

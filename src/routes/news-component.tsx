@@ -1,11 +1,13 @@
 import { Grid, Button, Box } from "@mui/material";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { useLoaderData } from "react-router-dom";
 import Article from "../components/news/article";
 import { INews } from "../types/interfaces";
 import { RotatingLines } from "react-loader-spinner";
 
 export default function NewsComponent() {
+  const { t } = useTranslation();
   const [articles, setArticles] = React.useState<INews[]>(
     useLoaderData() as INews[]
   );
@@ -27,7 +29,7 @@ export default function NewsComponent() {
       <div style={{ marginTop: "2em" }}>
         {articles.length > 0 && !loading && (
           <Button size="large" onClick={loadMoreHandler}>
-            Load more
+            {t("loadMore")}
           </Button>
         )}
         {loading && <RotatingLines width="42" />}

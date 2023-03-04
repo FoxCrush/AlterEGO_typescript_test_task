@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./login-form.module.css";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
+import { useTranslation } from "react-i18next";
 import { Button, Backdrop, Typography, Alert } from "@mui/material";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 import { toggleVisible, setToken } from "../../redux/user-slice";
@@ -11,6 +12,7 @@ import { validateInput } from "../../services/validation";
 const userToken = 333222444;
 
 export default function FormPropsTextFields() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = React.useState<string>("error");
   const [errorAlertIsVisible, setErrorAlertIsVisible] =
@@ -80,15 +82,15 @@ export default function FormPropsTextFields() {
                 color="inherit"
                 size="small"
               >
-                CLOSE
+                {t("close")}
               </Button>
             }
           >
             {errorMessage}
           </Alert>
         )}
-        <Typography variant="h4" gutterBottom color={"black"}>
-          Please, authorize
+        <Typography variant="h5" gutterBottom color={"black"}>
+          {t("auth,please")}
         </Typography>
         <Box
           component="form"
@@ -103,21 +105,21 @@ export default function FormPropsTextFields() {
               name="name"
               onChange={inputChangeHandler}
               id="outlined-required"
-              label="Name"
+              label={t("name")}
               value={nameInputValue}
             />
             <TextField
               name="password"
               onChange={inputChangeHandler}
               id="outlined-password-input-required"
-              label="Password"
+              label={t("password")}
               type="password"
               autoComplete="current-password"
               value={passwordInputValue}
             />
           </div>
           <Button onClick={signInBtnHandler} variant="outlined">
-            Sign in
+            {t("logIn")}
           </Button>
         </Box>
       </div>
