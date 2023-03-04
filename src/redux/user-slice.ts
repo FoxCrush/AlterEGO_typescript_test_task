@@ -21,8 +21,8 @@ export const userSlice = createSlice({
     toggleVisible: (state) => {
       state.isAuthFormVisible = !state.isAuthFormVisible;
     },
-    setToken: (state) => {
-      state.token = 333444111222;
+    setToken: (state, action: PayloadAction<number>) => {
+      state.token = action.payload;
     },
   },
 });

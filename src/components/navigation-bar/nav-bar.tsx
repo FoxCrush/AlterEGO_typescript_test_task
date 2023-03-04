@@ -11,12 +11,12 @@ import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
-import { useAppDispatch } from "../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import LoginForm from "../login-form";
 import { Avatar, Link, Stack } from "@mui/material";
 import { Outlet } from "react-router-dom";
 import i18next from "i18next";
-import { toggleVisible } from "../../redux/user-slice";
+import { toggleVisible, setToken } from "../../redux/user-slice";
 
 export default function MenuAppBar() {
   const { t } = useTranslation();
@@ -25,8 +25,8 @@ export default function MenuAppBar() {
   const [lang, setLang] = React.useState(() =>
     localStorage.getItem("i18nextLng")
   );
+  const token = useAppSelector((state) => state.users.token);
   const dispatch = useAppDispatch();
-
   const handleLangs = (
     event: React.MouseEvent<HTMLElement>,
     newLngs: string
@@ -37,36 +37,29 @@ export default function MenuAppBar() {
     }
   };
   const handleLogoutClick = () => {
-    // setAuth(false);
+    dispatch(setToken(0));
+    setAuth(false);
   };
   const handleLoginClick = () => {
     dispatch(toggleVisible());
-    // setAuth(!auth);
     setAnchorEl(null);
   };
-
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
-
   const handleClose = () => {
     setAnchorEl(null);
   };
+  React.useEffect(() => {
+    if (token !== 0) {
+      setAuth(true);
+      console.log(token);
+    }
+    console.log(token);
+  }, [token]);
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      {/* <FormGroup>
-        <FormControlLabel
-          control={
-            <Switch
-              checked={auth}
-              onChange={handleChange}
-              aria-label="login switch"
-            />
-          }
-          label={auth ? "Logout" : "Login"}
-        />
-      </FormGroup> */}
       <AppBar
         position="static"
         sx={{
