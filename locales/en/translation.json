@@ -1,5 +1,14 @@
 {
   "profile": "Profile",
   "logOut": "Log out",
-  "navButtons": "<0><0><0><0>Home</0></0></0><1><0><0>News</0></0></1></0>"
+  "navButtons": "<0><0><0><0>Home</0></0></0><1><0><0>News</0></0></1></0>",
+  "langOptions": "<0><0>EN</0><1>UA</1></0>",
+  "logIn": "Sign in",
+  "close": "Close",
+  "auth,please": "Please, authorize",
+  "name": "Name",
+  "password": "Password",
+  "me": "Me",
+  "loadMore": "Load more",
+  "delete": "Delete"
 }
