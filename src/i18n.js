@@ -10,5 +10,7 @@ i18next
   .init({
     debug: true,
     fallbackLng: "en",
-    loadPath: "/AlterEGO_typescript_test_task/locales/{{lng}}/{{ns}}.json",
+    backend: {
+      loadPath: "/AlterEGO_typescript_test_task/locales/{{lng}}/{{ns}}.json",
+    },
   });
