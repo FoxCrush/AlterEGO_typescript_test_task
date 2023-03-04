@@ -53,9 +53,7 @@ export default function MenuAppBar() {
   React.useEffect(() => {
     if (token !== 0) {
       setAuth(true);
-      console.log(token);
     }
-    console.log(token);
   }, [token]);
 
   return (

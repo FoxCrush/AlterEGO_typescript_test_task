@@ -8,7 +8,7 @@ i18next
   .use(I18nextBrowserLanguageDetector)
   .use(Backend)
   .init({
-    debug: true,
+    // debug: true,
     fallbackLng: "en",
     backend: {
       loadPath: "/AlterEGO_typescript_test_task/locales/{{lng}}/{{ns}}.json",

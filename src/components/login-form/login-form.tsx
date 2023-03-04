@@ -5,11 +5,13 @@ import TextField from "@mui/material/TextField";
 import { Button, Backdrop, Typography, Alert } from "@mui/material";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 import { toggleVisible, setToken } from "../../redux/user-slice";
+import { useNavigate } from "react-router-dom";
 import { validateInput } from "../../services/validation";
 
 const userToken = 333222444;
 
 export default function FormPropsTextFields() {
+  const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = React.useState<string>("error");
   const [errorAlertIsVisible, setErrorAlertIsVisible] =
     React.useState<boolean>(false);
@@ -48,12 +50,11 @@ export default function FormPropsTextFields() {
         setErrorAlertIsVisible(false);
         dispatch(toggleVisible());
         dispatch(setToken(userToken));
+        navigate("profile", { replace: true });
       }
-      console.log("login: ", validateInput(nameInputValue, passwordInputValue));
     } else {
       setErrorMessage("Name and Password are required");
       setErrorAlertIsVisible(true);
-      console.log("login: ", validateInput(nameInputValue, passwordInputValue));
     }
   };
 
