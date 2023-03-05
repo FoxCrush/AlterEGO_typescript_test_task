@@ -24,6 +24,7 @@ export default function FormPropsTextFields() {
   const dispatch = useAppDispatch();
   const handleClose = (event: React.MouseEvent<HTMLElement>) => {
     if (event.currentTarget === event.target) {
+      setErrorAlertIsVisible(false);
       dispatch(toggleVisible());
     }
   };
