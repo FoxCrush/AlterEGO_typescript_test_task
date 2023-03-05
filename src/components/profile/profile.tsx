@@ -2,9 +2,10 @@ import React from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { Stack } from "@mui/system";
-import { Trans } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 
 export default function ProfileComponent() {
+  useTranslation();
   return (
     <Box
       sx={{
@@ -24,7 +25,7 @@ export default function ProfileComponent() {
           </Typography>
           <img
             width="200px"
-            src="public/Profile_avatar_placeholder_large.png"
+            src="src/images/Profile_avatar_placeholder_large.png"
             alt="selfy"
           />
           <Typography variant="h5" gutterBottom>
