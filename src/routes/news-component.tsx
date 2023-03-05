@@ -36,7 +36,6 @@ export default function NewsComponent() {
       });
     });
   };
-  React.useEffect(() => {}, [articles]);
 
   return (
     <Box sx={{ padding: "1em" }}>
@@ -45,7 +44,7 @@ export default function NewsComponent() {
           <Article
             key={article.id}
             id={article.id}
-            name={article.title}
+            name={article.name}
             body={article.body}
             deleteArticleHandler={deleteArticle}
           />

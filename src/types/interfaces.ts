@@ -1,6 +1,7 @@
 export interface INews {
-  userId?: number;
+  postId?: number;
   id: number;
-  title?: string;
+  name: string;
   body?: string;
+  email?: string;
 }
