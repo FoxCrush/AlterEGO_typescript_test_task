@@ -1,3 +1,3 @@
 export const fetchInitialPosts = (): Promise<Response> => {
-  return fetch("https://jsonplaceholder.typicode.com/users");
+  return fetch("https://jsonplaceholder.typicode.com/posts");
 };

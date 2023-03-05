@@ -11,12 +11,14 @@ import ErrorPage from "./components/utility/error-page.jsx";
 import { createHashRouter, Outlet, RouterProvider } from "react-router-dom";
 import { fetchInitialPosts } from "./services/jsonplaceholder-api";
 import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
+import { persistStore } from "redux-persist";
+import { store } from "./redux/store.js";
 import {
   Link as RouterLink,
   LinkProps as RouterLinkProps,
 } from "react-router-dom";
 import { LinkProps } from "@mui/material/Link";
-import { store } from "./redux/store.js";
 
 const LinkBehavior = React.forwardRef<
   HTMLAnchorElement,
@@ -26,6 +28,8 @@ const LinkBehavior = React.forwardRef<
   // Map href (MUI) -> to (react-router)
   return <RouterLink ref={ref} to={href} {...other} />;
 });
+
+let persistor = persistStore(store);
 
 const theme = createTheme({
   components: {
@@ -80,9 +84,11 @@ const router = createHashRouter([
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <Provider store={store}>
-      <ThemeProvider theme={theme}>
-        <RouterProvider router={router} />
-      </ThemeProvider>
+      <PersistGate loading={null} persistor={persistor}>
+        <ThemeProvider theme={theme}>
+          <RouterProvider router={router} />
+        </ThemeProvider>
+      </PersistGate>
     </Provider>
   </React.StrictMode>
 );
