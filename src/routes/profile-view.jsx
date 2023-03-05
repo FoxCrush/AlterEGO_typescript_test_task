@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../redux/hooks";
+import Profile from "../components/profile";
 
 export default function ProfileView() {
   const token = useAppSelector((state) => state.users.token);
@@ -10,5 +11,5 @@ export default function ProfileView() {
       navigate("/", { replace: true });
     }
   }, []);
-  return <div>Welcome to your Profile</div>;
+  return <Profile />;
 }
