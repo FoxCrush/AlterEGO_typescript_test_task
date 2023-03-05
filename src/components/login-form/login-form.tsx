@@ -43,7 +43,7 @@ export default function FormPropsTextFields() {
   const signInBtnHandler = () => {
     if (nameInputValue.length > 0 && passwordInputValue.length > 0) {
       if (!validateInput(nameInputValue, passwordInputValue)) {
-        setErrorMessage("Name or Password are incorrect");
+        setErrorMessage(t("incorrectPassword")!);
         setErrorAlertIsVisible(true);
       } else {
         setNameInputValue("");
@@ -55,7 +55,7 @@ export default function FormPropsTextFields() {
         navigate("profile", { replace: true });
       }
     } else {
-      setErrorMessage("Name and Password are required");
+      setErrorMessage(t("loginAndPasswordReq")!);
       setErrorAlertIsVisible(true);
     }
   };
