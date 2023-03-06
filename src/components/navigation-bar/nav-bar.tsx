@@ -13,22 +13,20 @@ import Menu from "@mui/material/Menu";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { toggleVisible, setToken, setActiveTab } from "../../redux/user-slice";
 import LoginForm from "../login-form";
 import { Avatar, Link, Stack } from "@mui/material";
 import { Outlet } from "react-router-dom";
-import { toggleVisible, setToken } from "../../redux/user-slice";
 
 export default function MenuAppBar() {
   const { t } = useTranslation();
-  const [disabledBtn, setDisabledBtn] = React.useState(
-    window.location.href.substring(window.location.href.lastIndexOf("/") + 1)
-  );
   const [auth, setAuth] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [lang, setLang] = React.useState(() =>
     localStorage.getItem("i18nextLng")
   );
   const token = useAppSelector((state) => state.users.token);
+  const activeTab = useAppSelector((state) => state.users.activeTab);
   const dispatch = useAppDispatch();
   const handleLangs = (
     event: React.MouseEvent<HTMLElement>,
@@ -42,6 +40,7 @@ export default function MenuAppBar() {
   const handleLogoutClick = () => {
     dispatch(setToken(0));
     setAuth(false);
+    dispatch(setActiveTab(""));
   };
   const handleLoginClick = () => {
     dispatch(toggleVisible());
@@ -75,9 +74,9 @@ export default function MenuAppBar() {
                 <Button
                   variant="contained"
                   onClick={() => {
-                    setDisabledBtn("");
+                    dispatch(setActiveTab(""));
                   }}
-                  disabled={disabledBtn.length === 0}
+                  disabled={activeTab.length === 0}
                 >
                   <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                     Home
@@ -88,9 +87,9 @@ export default function MenuAppBar() {
                 <Button
                   variant="contained"
                   onClick={() => {
-                    setDisabledBtn("news");
+                    dispatch(setActiveTab("news"));
                   }}
-                  disabled={disabledBtn.includes("news")}
+                  disabled={activeTab.includes("news")}
                 >
                   <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                     News
@@ -154,7 +153,7 @@ export default function MenuAppBar() {
                   <MenuItem
                     onClick={() => {
                       setAnchorEl(null);
-                      setDisabledBtn("profile");
+                      dispatch(setActiveTab("profile"));
                     }}
                   >
                     {t("profile")}

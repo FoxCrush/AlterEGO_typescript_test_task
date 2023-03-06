@@ -5,7 +5,7 @@ import TextField from "@mui/material/TextField";
 import { useTranslation } from "react-i18next";
 import { Button, Backdrop, Typography, Alert } from "@mui/material";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
-import { toggleVisible, setToken } from "../../redux/user-slice";
+import { toggleVisible, setToken, setActiveTab } from "../../redux/user-slice";
 import { useNavigate } from "react-router-dom";
 import { validateInput } from "../../services/validation";
 
@@ -61,6 +61,7 @@ export default function FormPropsTextFields() {
         dispatch(toggleVisible());
         dispatch(setToken(userToken));
         navigate("profile", { replace: true });
+        dispatch(setActiveTab("profile"));
       }
     } else {
       setErrorMessage(t("loginAndPasswordReq")!);

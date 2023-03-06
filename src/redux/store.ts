@@ -6,6 +6,7 @@ import { persistReducer } from "redux-persist";
 const persistConfig = {
   key: "token",
   storage,
+  blacklist: ["isAuthFormVisible", "activeTab"],
 };
 const persistedReducer = persistReducer(persistConfig, usersReducer);
 
