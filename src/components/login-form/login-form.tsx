@@ -12,6 +12,8 @@ import { validateInput } from "../../services/validation";
 const userToken = 333222444;
 
 export default function FormPropsTextFields() {
+  const nameInputRef = React.useRef<HTMLInputElement>(null);
+  const passwordInputRef = React.useRef<HTMLInputElement>(null);
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = React.useState<string>("error");
@@ -41,6 +43,11 @@ export default function FormPropsTextFields() {
         break;
     }
   };
+  const passwordEnterBtnHandler = (event: React.KeyboardEvent<HTMLElement>) => {
+    if (event.key === "Enter") {
+      signInBtnHandler();
+    }
+  };
   const signInBtnHandler = () => {
     if (nameInputValue.length > 0 && passwordInputValue.length > 0) {
       if (!validateInput(nameInputValue, passwordInputValue)) {
@@ -60,6 +67,16 @@ export default function FormPropsTextFields() {
       setErrorAlertIsVisible(true);
     }
   };
+  const btnPressHandler = (event: React.KeyboardEvent<HTMLElement>) => {
+    if (event.key === "Enter" && passwordInputRef.current) {
+      passwordInputRef.current.focus();
+    }
+  };
+  React.useEffect(() => {
+    if (nameInputRef.current) {
+      nameInputRef.current.focus();
+    }
+  }, [loginVisible]);
 
   return (
     <Backdrop
@@ -103,6 +120,8 @@ export default function FormPropsTextFields() {
         >
           <div>
             <TextField
+              inputRef={nameInputRef}
+              onKeyDown={btnPressHandler}
               name="name"
               onChange={inputChangeHandler}
               id="outlined-required"
@@ -110,6 +129,8 @@ export default function FormPropsTextFields() {
               value={nameInputValue}
             />
             <TextField
+              inputRef={passwordInputRef}
+              onKeyDown={passwordEnterBtnHandler}
               name="password"
               onChange={inputChangeHandler}
               id="outlined-password-input-required"
