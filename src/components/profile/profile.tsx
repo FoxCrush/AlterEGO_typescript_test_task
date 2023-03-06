@@ -25,7 +25,7 @@ export default function ProfileComponent() {
           </Typography>
           <img
             width="200px"
-            src="src/images/Profile_avatar_placeholder_large.png"
+            src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541"
             alt="selfy"
           />
           <Typography variant="h5" gutterBottom>
