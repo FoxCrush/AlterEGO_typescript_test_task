@@ -20,6 +20,9 @@ import { toggleVisible, setToken } from "../../redux/user-slice";
 
 export default function MenuAppBar() {
   const { t } = useTranslation();
+  const [disabledBtn, setDisabledBtn] = React.useState(
+    window.location.href.substring(window.location.href.lastIndexOf("/") + 1)
+  );
   const [auth, setAuth] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [lang, setLang] = React.useState(() =>
@@ -69,14 +72,26 @@ export default function MenuAppBar() {
           <Trans i18nKey={"navButtons"}>
             <Stack spacing={2} direction="row">
               <Link href={"/"} underline="none">
-                <Button variant="contained">
+                <Button
+                  variant="contained"
+                  onClick={() => {
+                    setDisabledBtn("");
+                  }}
+                  disabled={disabledBtn.length === 0}
+                >
                   <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                     Home
                   </Typography>
                 </Button>
               </Link>
               <Link href={"/news"} underline="none">
-                <Button variant="contained">
+                <Button
+                  variant="contained"
+                  onClick={() => {
+                    setDisabledBtn("news");
+                  }}
+                  disabled={disabledBtn.includes("news")}
+                >
                   <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                     News
                   </Typography>
@@ -139,6 +154,7 @@ export default function MenuAppBar() {
                   <MenuItem
                     onClick={() => {
                       setAnchorEl(null);
+                      setDisabledBtn("profile");
                     }}
                   >
                     {t("profile")}
